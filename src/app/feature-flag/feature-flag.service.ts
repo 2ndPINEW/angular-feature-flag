@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-type Feature = 'feature1' | 'feature2';
+export type Feature = 'feature1' | 'feature2';
 
 @Injectable({
   providedIn: 'root',
