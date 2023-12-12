@@ -7,6 +7,9 @@ import { FeatureFlagDirective } from './feature-flag.directive';
   declarations: [
     FeatureFlagDirective
   ],
+  exports: [
+    FeatureFlagDirective
+  ],
   imports: [CommonModule],
   providers: [FeatureFlagService],
 })
