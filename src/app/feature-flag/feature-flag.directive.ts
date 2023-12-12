@@ -1,30 +1,25 @@
 import {
   Directive,
-  ElementRef,
   Input,
-  Renderer2,
   type OnInit,
+  inject,
 } from '@angular/core';
 import { Feature, FeatureFlagService } from './feature-flag.service';
+import { NgIf } from '@angular/common';
 
 @Directive({
   selector: '[appFeatureFlag]',
+  hostDirectives: [NgIf],
 })
 export class FeatureFlagDirective implements OnInit {
   @Input() appFeatureFlag!: Feature;
 
-  constructor(
-    private readonly el: ElementRef,
-    private readonly renderer: Renderer2,
-    private readonly featureFlagsService: FeatureFlagService,
-  ) {}
+  private readonly ngIfDirective = inject(NgIf);
+  private readonly featureFlagsService = inject(FeatureFlagService);
 
   ngOnInit(): void {
-    if (!this.featureFlagsService.isFeatureEnabled(this.appFeatureFlag)) {
-      this.renderer.removeChild(
-        this.el.nativeElement.parentNode,
-        this.el.nativeElement,
-      );
-    }
+    this.ngIfDirective.ngIf = this.featureFlagsService.isFeatureEnabled(
+      this.appFeatureFlag,
+    );
   }
 }
