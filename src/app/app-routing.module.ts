@@ -19,6 +19,14 @@ const routes: Routes = [
       ),
     canMatch: [() => inject(FeatureFlagService).isFeatureEnabled('feature2')],
   },
+  {
+    path: 'feature3',
+    loadChildren: () =>
+      import('./features/feature3/feature3.module').then(
+        (m) => m.Feature3Module
+      ),
+    canMatch: [() => inject(FeatureFlagService).isFeatureEnabled('feature3')],
+  },
 ];
 
 @NgModule({
